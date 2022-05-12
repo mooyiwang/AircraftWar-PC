@@ -1,0 +1,57 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class BombProp{
+    - enemyAndEnemyBullet:List<AbstractFlyingObject>
+    + BombProp(int locationX, int locationY, int speedX, int speedY)
+    + addBombed(AbstractFlyingObject bombed):void
+    + removeBombed(AbstractFlyingObject bombed):void
+    + notifyAllSub():void
+    + function(HeroAircraft heroAircraft):void
+}
+
+interface BombpropActivateUpdate{
+    + update():void
+    }
+
+
+BombpropActivateUpdate <|.. EliteEnemy
+BombpropActivateUpdate <|.. MobEnemy
+BombpropActivateUpdate <|.. EnemyBullet
+
+BombpropActivateUpdate <--o BombProp
+
+
+
+class EnemyBullet {
+    + EnemyBullet(int locationX, int locationY,int speedX, int speedY, int power)
+    + update():void
+}
+
+class MobEnemy {
+    + MobEnemy(int locationX, int locationY, int speedX, int speedY, int hp, ShootStrategy strategy)
+    + forward():void
+    + update():void
+}
+
+class EliteEnemy{
+    + EliteEnemy(int locationX, int locationY, int speedX, int speedY, int hp, ShootStrategy strategy)
+    + forward():void
+    + update():void
+}
+
+
+
+
+
+abstract AbstractGame{
+}
+
+note "AbstractGame中有Bombprop的引用，\nBombprop起作用时会将subscriber加入订阅，再update" as N1
+
+N1 -- AbstractGame
+N1 .. AbstractGame
+BombProp <-- N1
+BombpropActivateUpdate <.. N1
+
+@enduml

@@ -1,0 +1,101 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+abstract AbstractGame{
+- backGroundTop: int
+- executorService: ScheduledExecutorService
+- bgm: MusicThreadLoop
+- bossBgm: MusicThreadLoop
+- timeInterval: int
+- heroAircraft: HeroAircraft
+- enemyAircrafts: List<AbstractAircraft>
+- heroBullets: List<BaseBullet>
+- enemyBullets: List<BaseBullet>
+- props: List<AbstractProp>
+- prop: AbstractProp
+- mobFactory: EnemyFactory
+- eliteFactory: EnemyFactory
+- bossFactory: EnemyFactory
+- randomPropFactory: PropFactory
+- enemyMaxNumber: int
+- curBossNum: int
+- bossAppearCnt: int
+- eliteAppearCtrl: int
+- eliteNum: int
+- gameOverFlag: boolean
++ {static}score: int
++ scoreThreshold：int
++ lastScoreThreshold: int
+- time: int
+- cycleDuration: int
+- cycleTime: int
+--
++ AbstractGame()
++ action(): void
+- timeCountAndNewCycleJudge(): boolean
+- shootAction(): void
+- bulletsMoveAction(): void
+- aircraftsMoveAction(): void
+- propsMoveAction(): void
+- crashCheckAction(): void
+- postProcessAction(): void
++ paint(Graphics g): void
+- paintImageWithPositionRevised(Graphics g, List<? extends AbstractFlyingObject> objects): void
+- paintScoreAndLife(Graphics g): void
+..
++ {abstract}setBackgroundImage(): void
++ {abstract}hasBoss(): boolean
++ {abstract}isBossHpUp(): boolean
++ {abstract}setScoreThreshold(): int
++ {abstract}setEnemyHp(): int
++ {abstract}hardnessPrint(int eliteAppearCtrl): void
++ {abstract}setBossStrategy(): ShootStrategy
++ {abstract}setEnemyBulletPower(): int
++ {abstract}setEliteNum(int eliteAppearCtrl): void
++ {abstract}isCreateElite(int eliteAppearCtrl): void
+}
+
+class GameEasy{
++ setBackgroundImage(): void
++ hasBoss(): boolean
++ isBossHpUp(): boolean
++ setScoreThreshold(): int
++ setEnemyHp(): int
++ hardnessPrint(int eliteAppearCtrl): void
++ setBossStrategy(): ShootStrategy
++ setEnemyBulletPower(): int
++ setEliteNum(int eliteAppearCtrl): void
++ isCreateElite(int eliteAppearCtrl): void
+}
+class GameMedium{
++ setBackgroundImage(): void
++ hasBoss(): boolean
++ isBossHpUp(): boolean
++ setScoreThreshold(): int
++ setEnemyHp(): int
++ hardnessPrint(int eliteAppearCtrl): void
++ setBossStrategy(): ShootStrategy
++ setEnemyBulletPower(): int
++ setEliteNum(int eliteAppearCtrl): void
++ isCreateElite(int eliteAppearCtrl): void
+}
+class GameHard{
++ setBackgroundImage(): void
++ hasBoss(): boolean
++ isBossHpUp(): boolean
++ setScoreThreshold(): int
++ setEnemyHp(): int
++ hardnessPrint(int eliteAppearCtrl): void
++ setBossStrategy(): ShootStrategy
++ setEnemyBulletPower(): int
++ setEliteNum(int eliteAppearCtrl): void
++ isCreateElite(int eliteAppearCtrl): void
+}
+
+
+AbstractGame <|-- GameEasy
+AbstractGame <|-- GameMedium
+AbstractGame <|-- GameHard
+
+AbstractGame <-- Main
+@enduml

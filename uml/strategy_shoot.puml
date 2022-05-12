@@ -1,0 +1,110 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+abstract class ShootStrategy{
+    # shootNum:int
+    # power:int
+    # direction:int
+    + ShootStrategy()
+    + {abstract}shoot(AbstractAircraft aircraft):List<BaseBullet>
+}
+
+class StraightShootUp{
+    + StraightShootUp()
+    + shoot(AbstractAircraft aircraft):List<BaseBullet>
+    }
+
+class StraightShootDown{
+    + StraightShootDown()
+    + shoot(AbstractAircraft aircraft):List<BaseBullet>
+    }
+
+class DiffuseShootUp3{
+    + DiffuseShootUp3()
+    + shoot(AbstractAircraft aircraft):List<BaseBullet>
+}
+
+class DiffuseShootUp5{
+    + DiffuseShootUp5()
+    + shoot(AbstractAircraft aircraft):List<BaseBullet>
+}
+
+class DiffuseShootDown5{
+    + DiffuseShootDown5()
+    + shoot(AbstractAircraft aircraft):List<BaseBullet>
+}
+
+class DiffuseShootDown3{
+    + DiffuseShootDown3()
+    + shoot(AbstractAircraft aircraft):List<BaseBullet>
+}
+
+
+
+class ShootNothing{
+    + ShootNothing()
+    + shoot(AbstractAircraft aircraft):List<BaseBullet>
+}
+
+
+abstract class AbstractAircraft{
+	# maxHp:int
+    # hp:int
+    # strategy:ShootStrategy
+    + AbstractAircraft(int locationX, int locationY, int speedX, int speedY, int hp, ShootStrategy strategy)
+    + decreaseHp(int decrease):void
+    + getHp():int
+    + setShootStrategy(ShootStrategy strategy):void
+    + getShootStrategy():ShootStrategy
+    + shoot():List<BaseBullet>
+ }
+
+ interface EnemyFactory{
+    + enemyCreator():AbstractAircraft
+ }
+
+class FireProp{
+    + FireProp(int locationX, int locationY, int speedX, int speedY, ShootStrategy strategy)
+    + function(HeroAircraft heroAircraft,List<AbstractAircraft> enemyAircrafts):void
+}
+
+'class MobFactory{
+'    + enemyCreator():AbstractAircraft
+'}
+'
+'class EliteFactory{
+'    + enemyCreator():AbstractAircraft
+'}
+'
+'class BossFactory{
+'    + enemyCreator():AbstractAircraft
+'}
+
+abstract AbstractGame{}
+
+ShootStrategy <|-- StraightShootUp
+ShootStrategy <|-- StraightShootDown
+ShootStrategy <|-- DiffuseShootUp3
+ShootStrategy <|-- DiffuseShootUp5
+ShootStrategy <|-- DiffuseShootDown5
+ShootStrategy <|-- DiffuseShootDown3
+ShootStrategy <|-- ShootNothing
+ShootStrategy <---o AbstractAircraft
+AbstractAircraft <--- EnemyFactory
+AbstractAircraft <--- FireProp
+AbstractAircraft <--- AbstractGame
+
+'EnemyFactory <|.. MobFactory
+'EnemyFactory <|.. EliteFactory
+'EnemyFactory <|.. BossFactory
+
+'StraightShootDown <... EliteFactory
+'DiffuseShootDown <... BossFactory
+'ShootNothing <... MobFactory
+DiffuseShootUp3 <... FireProp
+DiffuseShootUp5 <... FireProp
+
+ShootStrategy <.. AbstractGame
+ShootStrategy <.. EnemyFactory
+
+@enduml

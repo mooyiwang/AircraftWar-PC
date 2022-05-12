@@ -1,0 +1,52 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface GameRecordDAO{
+    + getAllRecords():List<GameRecord>
+    + addRecord(int score):void
+    + deleteRecordbyRank(int rank):void
+    + exportRecords() throws IOException:void
+    + inportRecords() throws IOException:void
+    + printRecords():void
+    + clearAllRecords():void
+    }
+
+GameRecordDAO <|... GameRecordDAOImple
+GameRecord <--- GameRecordDAOImple
+class GameRecordDAOImple{
+
+    - fout:FileOutputStream
+    - fin:FileInputStream:
+    - writer:OutputStreamWriter
+    - reader:InputStreamReader
+    -{static} records: List<GameRecord>
+    - format:SimpleDateFormat
+    - bufferedReader:BufferedReader
+    + GameRecordDAOImple()
+    + getAllRecords():List<GameRecord>
+    + addRecord(int score):void
+    + deleteRecordbyRank(int rank):void
+    + exportRecords() throws IOException:void
+    + importRecords() throws IOException:void
+    + printRecords():void
+    + clearAllRecords():void
+}
+
+class GameRecord{
+    - name:String
+    - score:int
+    - time:String
+
+    + GameRecord(String name, int score, String time)
+    + getName():String
+    + setName(String name):void
+    + getScore():int
+    + setScore(int score):void
+    + getTime():String
+    +setTime(String time):void
+    }
+
+class BoardPanel{}
+
+GameRecordDAO <... BoardPanel
+@enduml

@@ -1,0 +1,59 @@
+@startuml
+'https://plantuml.com/class-diagram
+abstract class AbstractFlyingObject
+{
+'    # locationX:int
+'    # locationY:int
+'    # speedX:int
+'    # speedY:int
+'    # image:BufferedImage
+'    # width:int
+'    # height:int
+'    # isValid:boolean
+'
+'    + AbstractFlyingObject(int locationX, int locationY, int speedX, int speedY)
+'    + forward():void
+'    + crash(AbstractFlyingObject flyingObject):boolean
+'    + setLocation(double locationX, double locationY):void
+'    + getLocationX():int
+'    + getLocationY():int
+'    + getSpeedY():int
+'    + getSpeedX():int
+'    + getImage():BufferedImage
+'    + getWidth():int
+'    + getHeight():int
+'    + notValid():boolean
+'    + vanish():void
+}
+abstract class AbstractAircraft
+{
+'	# maxHp:int
+'    # hp:int
+'    # shoootStrategy:ShootStrategy
+'    + AbstractAircraft(int locationX, int locationY, int speedX, int speedY, int hp, ShootStrategy strategy)
+'    + decreaseHp(int decrease):void
+'    + getHp():int
+'    + setShootStrategy(ShootStrategy strategy):void
+'    + getShootStrategy(): ShootStrategy
+'    + shoot():List<BaseBullet>
+ }
+
+ AbstractFlyingObject <|-- AbstractAircraft
+ AbstractAircraft <|-- HeroAircraft
+ HeroAircraft <-- AbstractGame
+
+ class HeroAircraft {
+     - {static} heroAircraft:HeroAircraft
+     - HeroAircraft(int locationX, int locationY, int speedX, int speedY, int hp, ShootStrategy strategy)
+     + getHeroAircraft():HeroAircraft
+     + forward():void
+     + increaseHp(int increase):void
+ }
+
+ abstract AbstractGame{
+    - heroAircraft:HeroAircraft
+
+ }
+
+
+@enduml
